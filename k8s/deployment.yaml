@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: automotive-app
+  labels:
+    app: automotive-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: automotive-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: automotive-app
+    spec:
+      containers:
+      - name: automotive-app
+        image: automotive-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
